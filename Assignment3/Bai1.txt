@@ -1,8 +1,0 @@
-1. Danh sách các lớp chính được rút ra từ đề bài.
-Sach
-DocGia
-ThuThu
-PhieuMuon
-ThuVien (lớp quản lý tổng thể)
-
-2. Với mỗi lớp: liệt kê các thuộc tính kèm kiểu dữ liệu dự kiến.
