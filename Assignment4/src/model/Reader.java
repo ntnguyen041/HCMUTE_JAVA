@@ -1,10 +1,59 @@
-package Assignment3.src.model;
+package Assignment4.src.model;
 public class Reader {
     private String readerId;
     private String fullName;
     private String email;
     private String phone;
     private String ReaderType;
+
+ 
+    protected int    currentBorrowCount;
+ 
+    // Các abstract method hiện có (từ B1-B3):
+    public abstract String getInfo();
+    public abstract double calculateLateFee(int daysLate);
+    public abstract int    getMaxBorrowLimit();
+
+    public final BorrowResult processBorrow(Book book) {
+        // Bước 1: kiểm tra độc giả còn quyền mượn không (cố định)
+        if (!checkBorrowQuota()) {
+            return new BorrowResult(false, "Da dat gioi han muon: " + getMaxBorrowLimit() + " cuon");
+        }
+        // Bước 2: kiểm tra điều kiện đặc thù của từng loại độc giả (abstract)
+        if (!checkSpecialCondition(book)) {
+            return new BorrowResult(false, getSpecialConditionMessage());
+        }
+        // Bước 3: trừ tồn kho sách (cố định)
+        book.decreaseStock();
+        currentBorrowCount++;
+        // Bước 4: ghi nhận và thông báo (có thể override — Hook method)
+        onBorrowSuccess(book);
+        return new BorrowResult(true, "Muon thanh cong: " + book.getTitle());
+    }
+        private boolean checkBorrowQuota() {
+        return currentBorrowCount < getMaxBorrowLimit();
+    }
+        protected abstract boolean checkSpecialCondition(Book book);
+    protected abstract String  getSpecialConditionMessage();
+ 
+    // Bước 4 — Hook: có thể override để thêm hành động sau khi mượn thành công
+    protected void onBorrowSuccess(Book book) {
+        System.out.println(getFullName() + " muon: " + book.getTitle());
+    }
+ 
+    public String getFullName() { return fullName; }
+
+public class BorrowResult {
+    private boolean success;
+    private String  message;
+    public BorrowResult(boolean success, String message) {
+        this.success = success;
+        this.message = message;
+    }
+    public boolean isSuccess() { return success; }
+    public String  getMessage() { return message; }
+}
+
 
     public Reader(String fullName, String email, String phone, String ReaderType) {
         setFullName(fullName);

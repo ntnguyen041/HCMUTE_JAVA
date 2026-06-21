@@ -3,11 +3,11 @@ package Assignment4.src;
 import java.util.Scanner;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import Assignment3.src.model.Book;
-import Assignment3.src.model.Reader;
-import Assignment3.src.model.BorrowSlip;
-import Assignment3.src.model.Library;
-import Assignment3.src.util.ReaderValidation;
+import Assignment4.src.model.Book;
+import Assignment4.src.model.Reader;
+import Assignment4.src.model.BorrowSlip;
+import Assignment4.src.model.Library;
+import Assignment4.src.util.ReaderValidation;
 
 public class Main {
 	public static void main(String[] args) {
